@@ -1,0 +1,17 @@
+using UnityEngine;
+
+public class Party : MonoBehaviour
+{
+    [SerializeField] private int _amountReducedBooks;
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.TryGetComponent(out Bag bag))
+        {
+            for (int i = 0; i < _amountReducedBooks; i++)
+            {
+                bag.GetBook();
+            }
+        }
+    }
+}
