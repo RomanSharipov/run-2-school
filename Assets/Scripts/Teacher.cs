@@ -6,11 +6,11 @@ public class Teacher : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent(out Bag bag))
+        if (other.TryGetComponent(out Player player))
         {
             foreach (var book in _booksReward)
             {
-                bag.PutInside(book);
+                player.Bag.PutInside(book);
             }
         }
     }

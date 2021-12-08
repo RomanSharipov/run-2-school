@@ -1,10 +1,17 @@
 using UnityEngine;
+using UnityEngine.UI;
 
-public class Book : MonoBehaviour
+public abstract class Book : MonoBehaviour
 {
+    [SerializeField] private Color _colorBar;
+    [SerializeField] private string _symbol;
+    [SerializeField] private ParticleSystem _paperExplosionTemplate;
 
     private Transform _transform;
     private BoxCollider _boxCollider;
+
+    public Color ColorBar => _colorBar;
+    public string Symbol => _symbol;
 
     private void Awake()
     {
@@ -16,6 +23,7 @@ public class Book : MonoBehaviour
     {
         if (other.TryGetComponent(out Player player))
         {
+            Instantiate(_paperExplosionTemplate, _transform.position, _transform.rotation);
             player.TakeBook(this);
             Destroy();
         }
@@ -28,7 +36,8 @@ public class Book : MonoBehaviour
 
     public void SwitchOffBoxCollider()
     {
-        _boxCollider.enabled = false;}
+        _boxCollider.enabled = false;
+    }
 
     public void Destroy()
     {

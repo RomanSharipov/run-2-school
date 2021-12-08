@@ -6,11 +6,11 @@ public class Party : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent(out Bag bag))
+        if (other.TryGetComponent(out Player player))
         {
             for (int i = 0; i < _amountReducedBooks; i++)
             {
-                bag.GetBook();
+                player.Bag.GetBook();
             }
         }
     }

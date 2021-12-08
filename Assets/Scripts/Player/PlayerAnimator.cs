@@ -4,8 +4,6 @@ using UnityEngine;
 [RequireComponent(typeof(Player))]
 public class PlayerAnimator : MonoBehaviour
 {
-    [SerializeField] private Professor _professor;
-
     private Animator _animator;
     private Player _player;
 
@@ -18,30 +16,32 @@ public class PlayerAnimator : MonoBehaviour
     private void OnEnable()
     {
         _player.HasStopped += OnStopWalking;
+        _player.TakenDamage += OnTakeDamage;
     }
 
     private void OnDisable()
     {
         _player.HasStopped -= OnStopWalking;
+        _player.TakenDamage -= OnTakeDamage;
     }
 
     private void OnStopWalking()
     {
-        _animator.SetTrigger("StopWalking");
+        _animator.SetTrigger(Params.StopWalking);
     }
 
     public void GiveAss()
     {
-        _animator.Play("GiveAss");
+        _animator.Play(Params.GiveAss);
     }
 
-    public void TakeDamage()
+    private void OnTakeDamage()
     {
-        _animator.Play("TakeDamage",0,0);
+        _animator.Play(Params.TakeDamage, 0,0);
     }
 
     public void TurnAway()
     {
-        _animator.Play("TurnAway");
+        _animator.Play(Params.TurnAway);
     }
 }

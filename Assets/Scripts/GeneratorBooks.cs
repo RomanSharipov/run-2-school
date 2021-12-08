@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class GeneratorBooks : MonoBehaviour
 {
-    private const float GroungPositionY = 22.19478f;
+    private const float GroungPositionY = 22.31236f;
 
     [SerializeField] private GameObject[] _items;
     [SerializeField] private int _lengthCount;

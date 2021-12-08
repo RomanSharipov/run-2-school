@@ -1,8 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Bag : MonoBehaviour
 {
+    [SerializeField] private ParticleSystem _number;
+    
     [SerializeField] private float _distanceBetweenBooks;
     [SerializeField] private Transform _placeFirstBook;
     [SerializeField] private Vector3 _scaleBookInBag;
@@ -10,6 +13,9 @@ public class Bag : MonoBehaviour
     private Stack<Book> _textbooks;
     private Transform _transform;
     private Vector3 _positionUpperBook;
+
+    public event UnityAction<Book> AddedBook;
+    public event UnityAction<Book> ReduceBook;
 
     private void Start()
     {
@@ -26,6 +32,7 @@ public class Bag : MonoBehaviour
         newBook.transform.localPosition = _positionUpperBook;
         newBook.ChangeScaleNewBook(_scaleBookInBag);
         _positionUpperBook = new Vector3(_positionUpperBook.x, _positionUpperBook.y + _distanceBetweenBooks, _positionUpperBook.z);
+        AddedBook?.Invoke(book);
     }
 
     public Book GetBook()
@@ -33,6 +40,7 @@ public class Bag : MonoBehaviour
         Book book = _textbooks.Pop();
         book.Destroy();
         _positionUpperBook = new Vector3(_positionUpperBook.x, _positionUpperBook.y - _distanceBetweenBooks, _positionUpperBook.z);
+        ReduceBook?.Invoke(book);
         return book;
     }
 
@@ -40,4 +48,19 @@ public class Bag : MonoBehaviour
     {
         return _textbooks.Count == 0;
     }
+
+    public int GetCountBooks(Book typeBook)
+    {
+        int countBook = 0;
+
+        foreach (var book in _textbooks)
+        {
+            if (book.GetType() == typeBook.GetType())
+            {
+                countBook++;
+            }
+        }
+        return countBook;
+    }
+
 }

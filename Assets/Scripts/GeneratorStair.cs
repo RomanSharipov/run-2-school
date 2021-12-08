@@ -3,8 +3,7 @@ using UnityEngine;
 public class GeneratorStair : MonoBehaviour
 {
     [SerializeField] private Transform _placeNewStair;
-    [SerializeField] private Bag _bag;
-    [SerializeField] private PlayerMovement _playerMovement;
+    [SerializeField] private Player _player;
     [SerializeField] private float _delay;
     [SerializeField] private Vector3 _scaleOneStair;
     [SerializeField] private MapMovement _map;
@@ -13,21 +12,21 @@ public class GeneratorStair : MonoBehaviour
 
     private void CreateOneStepStair()
     {
-        Book book = _bag.GetBook();
+        Book book = _player.Bag.GetBook();
         Book newStair = Instantiate(book, _placeNewStair.position, _placeNewStair.rotation);
         newStair.transform.SetParent(_map.transform,true);
-        newStair.ChangeScaleNewBook(_scaleOneStair);
         newStair.SwitchOffBoxCollider();
+        newStair.ChangeScaleNewBook(_scaleOneStair);
     }
 
     private void OnEnable()
     {
-        _playerMovement.ClimbedStairs += OnTryCreateStair;
+        _player.PlayerMovement.ClimbedStairs += OnTryCreateStair;
     }
 
     private void OnDisable()
     {
-        _playerMovement.ClimbedStairs -= OnTryCreateStair;
+        _player.PlayerMovement.ClimbedStairs -= OnTryCreateStair;
     }
 
     private void OnTryCreateStair()

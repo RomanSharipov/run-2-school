@@ -3,25 +3,24 @@ using UnityEngine.Events;
 
 [RequireComponent(typeof(ProfessorMovementToPlayer))]
 [RequireComponent(typeof(ProfessorAttackPlayer))]
-[RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(ProfessorAnimator))]
 public class Professor : MonoBehaviour
 {
-    protected Animator _animator;
-
-    protected Player _player;
-    protected Transform _transform;
-
+    private Player _player;
     private ProfessorMovementToPlayer _professorMovementToPlayer;
     private ProfessorAttackPlayer _professorAttackPlayer;
+    private ProfessorAnimator _professorAnimator;
 
+    public Player Player => _player;
+    public ProfessorAttackPlayer ProfessorAttackPlayer => _professorAttackPlayer;
     public event UnityAction CatchedPlayer;
 
     private void Awake()
     {
         _professorMovementToPlayer = GetComponent<ProfessorMovementToPlayer>();
         _professorAttackPlayer = GetComponent<ProfessorAttackPlayer>();
-        _animator = GetComponent<Animator>();
-        _transform = GetComponent<Transform>();
+        _professorAnimator = GetComponent<ProfessorAnimator>();
+        
     }
 
     private void OnTriggerEnter(Collider other)
@@ -30,17 +29,16 @@ public class Professor : MonoBehaviour
         {
             _player = player;
             CatchedPlayer?.Invoke();
-            _animator.Play("Talk");
         }
     }
 
     public void PunishPlayer()
     {
-        _animator.SetTrigger("PunishPlayer");
+        _professorAnimator.PunishPlayer();
         MoveToPlayer();
     }
 
-    private void MoveToPlayer()
+    public void MoveToPlayer()
     {
         _professorMovementToPlayer.enabled = true;
     }

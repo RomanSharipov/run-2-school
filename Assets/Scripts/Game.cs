@@ -6,15 +6,19 @@ public class Game : MonoBehaviour
     [SerializeField] private Screen _punishmentPlayerScreen;
     [SerializeField] private Professor _professor;
     [SerializeField] private MapMovement _mapMovement;
+    [SerializeField] private InscriptionOnReward _inscriptionOnReward;
+    [SerializeField] private Canvas _canvas;
 
-    private void Start()
+    private void OnEnable()
     {
         _professor.CatchedPlayer += OnStop;
+        _player.Bag.AddedBook += ShowInscriptionOnReward;
     }
 
     private void OnDisable()
     {
         _professor.CatchedPlayer -= OnStop;
+        _player.Bag.AddedBook -= ShowInscriptionOnReward;
     }
 
     public void SpankPlayer()
@@ -29,5 +33,10 @@ public class Game : MonoBehaviour
         _player.ResetPosition();
         _mapMovement.Stop();
         _punishmentPlayerScreen.Open();
+    }
+
+    private void ShowInscriptionOnReward(Book book)
+    {
+        Instantiate(_inscriptionOnReward, _canvas.transform);
     }
 }

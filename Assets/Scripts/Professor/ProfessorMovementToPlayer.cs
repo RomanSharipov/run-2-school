@@ -1,18 +1,26 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Professor))]
-public class ProfessorMovementToPlayer : Professor
+public class ProfessorMovementToPlayer : MonoBehaviour
 {
     [SerializeField] private float _speed;
     [SerializeField] private float _stopDistance;
 
     private Vector3 _playerPointPosition = new Vector3();
 
-    private float _distanceToPlayer;
+    [SerializeField] private float _distanceToPlayer;
+    private Professor _professor;
+    private Transform _transform;
+
+    private void Awake()
+    {
+        _professor = GetComponent<Professor>();
+        _transform = GetComponent<Transform>();
+    }
 
     private void OnEnable()
     {
-        _playerPointPosition = _player.GetCurrentPosition();
+        _playerPointPosition = _professor.Player.GetCurrentPosition();
     }
 
     private void Update()
@@ -25,7 +33,7 @@ public class ProfessorMovementToPlayer : Professor
         }
         else
         {
-            SpankPlayer();
+            _professor.SpankPlayer();
             enabled = false;
         }
     }

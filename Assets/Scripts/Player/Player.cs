@@ -11,12 +11,19 @@ public class Player : MonoBehaviour
     [SerializeField] private Professor _professor;
     [SerializeField] private MapMovement _mapMovement;
     [SerializeField] private float _delayBeforeTurnAway;
+    [SerializeField] private ParticleSystem _angrySmile;
+    
 
     private PlayerInput _playerInput;
     private Transform _transform;
     private PlayerMovement _playerMovement;
     private PlayerAnimator _playerAnimator;
     private Vector3 _startPosition = new Vector3();
+
+    public event UnityAction TakenDamage;
+
+    public Bag Bag => _bag;
+    public PlayerMovement PlayerMovement => _playerMovement;
 
     private void Awake()
     {
@@ -28,7 +35,6 @@ public class Player : MonoBehaviour
     }
 
     public event UnityAction HasStopped;
-    
 
     public void TakeBook(Book book)
     {
@@ -42,7 +48,9 @@ public class Player : MonoBehaviour
 
     public void TakeDamage()
     {
-        _playerAnimator.TakeDamage();
+        Instantiate(_angrySmile, _transform);
+        _bag.GetBook();
+        TakenDamage?.Invoke();
     }
 
     public void StopMoving()
@@ -65,6 +73,7 @@ public class Player : MonoBehaviour
     public void GiveAss()
     {
         _playerAnimator.GiveAss();
+
     }
 
     public IEnumerator TurnAway()
