@@ -37,8 +37,8 @@ public class ProfessorAnimator : MonoBehaviour
         _animator.Play(Params.Spank);
     }
 
-    public void PunishPlayer()
+    public void WalkToPlayer()
     {
-        _animator.SetTrigger(Params.PunishPlayer);
+        _animator.SetTrigger(Params.WalkToPlayer);
     }
 }

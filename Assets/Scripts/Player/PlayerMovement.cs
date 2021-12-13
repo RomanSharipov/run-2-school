@@ -25,7 +25,7 @@ public class PlayerMovement : MonoBehaviour
     private Coroutine _changePosition;
     
 
-    public event UnityAction ClimbedStairs;
+    public event UnityAction TriedClimbedStairs;
 
     private void Awake()
     {
@@ -44,7 +44,7 @@ public class PlayerMovement : MonoBehaviour
         if (_player.isCanClimb())
         {
             _transform.Translate(new Vector3(0, Time.deltaTime * _speedClimb, 0));
-            ClimbedStairs?.Invoke();
+            TriedClimbedStairs?.Invoke();
         }
     }
 
@@ -96,7 +96,6 @@ public class PlayerMovement : MonoBehaviour
     private void OnEnable()
     {
         _playerInput.TriedClimbStairs += TryClimbStairs;
-        
     }
 
     private void OnDisable()

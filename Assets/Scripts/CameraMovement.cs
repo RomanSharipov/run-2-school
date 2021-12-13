@@ -4,7 +4,8 @@ public class CameraMovement : MonoBehaviour
 {
     [SerializeField] private Professor _professor;
     [SerializeField] private Player _player;
-    [SerializeField] private Transform CatchedPlayerCameraPoint;
+    [SerializeField] private Transform _ñatchedPlayerCameraPoint;
+
     private Transform _transform;
     private Vector3 offset;
     private float _distanceToPlayerY;
@@ -33,7 +34,7 @@ public class CameraMovement : MonoBehaviour
 
     private void LookAtProfessor()
     {
-        _transform.SetParent(CatchedPlayerCameraPoint);
+        _transform.SetParent(_ñatchedPlayerCameraPoint);
         _transform.localPosition = Vector3.zero;
         _transform.rotation = Quaternion.identity;
         _transform.localRotation = Quaternion.identity;

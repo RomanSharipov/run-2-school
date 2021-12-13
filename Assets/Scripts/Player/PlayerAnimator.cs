@@ -44,4 +44,14 @@ public class PlayerAnimator : MonoBehaviour
     {
         _animator.Play(Params.TurnAway);
     }
+
+    public void Fall()
+    {
+        _animator.SetBool(Params.IsGrounded,false);
+    }
+
+    public void ToLand()
+    {
+        _animator.SetBool(Params.IsGrounded, true);
+    }
 }

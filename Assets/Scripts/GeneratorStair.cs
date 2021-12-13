@@ -21,12 +21,12 @@ public class GeneratorStair : MonoBehaviour
 
     private void OnEnable()
     {
-        _player.PlayerMovement.ClimbedStairs += OnTryCreateStair;
+        _player.PlayerMovement.TriedClimbedStairs += OnTryCreateStair;
     }
 
     private void OnDisable()
     {
-        _player.PlayerMovement.ClimbedStairs -= OnTryCreateStair;
+        _player.PlayerMovement.TriedClimbedStairs -= OnTryCreateStair;
     }
 
     private void OnTryCreateStair()

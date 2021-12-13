@@ -21,12 +21,6 @@ public class Game : MonoBehaviour
         _player.Bag.AddedBook -= ShowInscriptionOnReward;
     }
 
-    public void SpankPlayer()
-    {
-        _professor.PunishPlayer();
-        _player.GiveAss();
-    }
-
     private void OnStop()
     {
         _player.StopMoving();
@@ -38,5 +32,11 @@ public class Game : MonoBehaviour
     private void ShowInscriptionOnReward(Book book)
     {
         Instantiate(_inscriptionOnReward, _canvas.transform);
+    }
+
+    public void PunishPlayer()
+    {
+        _professor.WalkToPlayer();
+        _player.GiveAss();
     }
 }

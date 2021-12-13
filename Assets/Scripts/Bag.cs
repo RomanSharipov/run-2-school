@@ -5,7 +5,6 @@ using UnityEngine.Events;
 public class Bag : MonoBehaviour
 {
     [SerializeField] private ParticleSystem _number;
-    
     [SerializeField] private float _distanceBetweenBooks;
     [SerializeField] private Transform _placeFirstBook;
     [SerializeField] private Vector3 _scaleBookInBag;
@@ -62,5 +61,4 @@ public class Bag : MonoBehaviour
         }
         return countBook;
     }
-
 }

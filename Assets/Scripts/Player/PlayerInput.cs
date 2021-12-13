@@ -1,16 +1,16 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-[RequireComponent(typeof(PlayerMovement))]
+[RequireComponent(typeof(Player))]
 public class PlayerInput : MonoBehaviour
 {
-    private PlayerMovement _playerMovement;
+    private Player _player;
 
     public event UnityAction TriedClimbStairs;
 
     private void Awake()
     {
-        _playerMovement = GetComponent<PlayerMovement>();
+        _player = GetComponent<Player>();
     }
 
     private void Update()
@@ -22,12 +22,19 @@ public class PlayerInput : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.A))
         {
-            _playerMovement.TryMoveLeft();
+            _player.PlayerMovement.TryMoveLeft();
         }
 
         if (Input.GetKeyDown(KeyCode.D))
         {
-            _playerMovement.TryMoveRight();
+            _player.PlayerMovement.TryMoveRight();
+        }
+
+        if (Input.GetKeyUp(KeyCode.Mouse0))
+        {
+            if (_player.IsGrounded)
+                return;
+            _player.PlayerAnimator.Fall();
         }
     }
 }

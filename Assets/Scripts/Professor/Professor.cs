@@ -32,9 +32,9 @@ public class Professor : MonoBehaviour
         }
     }
 
-    public void PunishPlayer()
+    public void WalkToPlayer()
     {
-        _professorAnimator.PunishPlayer();
+        _professorAnimator.WalkToPlayer();
         MoveToPlayer();
     }
 
